@@ -7,9 +7,13 @@ app = Flask(__name__)
 app.config['MONGO_URI'] = 'mongodb://localhost/pythonreactdb'
 mongo = PyMongo(app)
 
+# Settings
+CORS(app)
+
+# Database
 db = mongo.db.users
 
-@app.route('/user',methods=['POST'])
+@app.route('/users',methods=['POST'])
 def createUsers():
     id = db.insert_one({
         'username':request.json['username'],
@@ -17,6 +21,7 @@ def createUsers():
         'password':request.json['password']
     })
     return jsonify(str(ObjectId(id)))
+
 
 @app.route('/users',methods=['GET'])
 def getUsers():
@@ -29,7 +34,8 @@ def getUsers():
         })
     return jsonify(users)
 
-@app.route('/user/<id>',methods=['GET'])
+
+@app.route('/users/<id>',methods=['GET'])
 def getUser(id):
     user = db.find_one({'_id' :ObjectId(id)})
     return jsonify({
@@ -39,18 +45,22 @@ def getUser(id):
         'password':user['password']
     })
 
-@app.route('/user/deleteUser/<id>',methods=['DELETE'])
+
+@app.route('/users/deleteUser/<id>',methods=['DELETE'])
 def deleteUser(id):
     db.delete_one({'_id': ObjectId(id)})
     return jsonify({'msg':'user deleted'})
 
-# @app.route('/users/<id>',methods=['PUT'])
-# def updateUser():
-#     return'<h1>updateUser</>'
 
-# @app.route('/users/<id>',methods=['PUT'])
-# def updateUser():
-#     return'<h1>updateUser</>'
+@app.route('/users/updateUser/<id>',methods=['PUT'])
+def updateUser(id):
+    print(request.json)
+    db.update_one({'_id': ObjectId(id)}, {"$set": {
+        'username': request.json['username'],
+        'email': request.json['email'],
+        'password': request.json['password']
+    }})
+    return jsonify({'message': 'User Updated'})
 
 
 if __name__ == "__main__":
