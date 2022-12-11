@@ -4,11 +4,12 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import Root from "./routes/root";
+import Root from "./components/root";
 //import Users from "./routes/Users";
 import ErrorPage from "./error-page";
 import  Users from "./components/users/Users";
-import Navbar from "./components/Navbar";
+import About from "./components/about/About";
+import Register from "./components/register/Register";
 import 'bootswatch/dist/darkly/bootstrap.min.css';
 import axios from 'axios';
 
@@ -36,8 +37,13 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
-    path: "/navbar",
-    element: <Navbar />,
+    path: "/about",
+    element: <About />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/register",
+    element: <Register />,
     errorElement: <ErrorPage />,
   }
 ]);

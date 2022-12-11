@@ -2,6 +2,7 @@ import { React, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from 'axios';
 import './styles.css';
+import Menu from "../menu/Menu";
 
 const Users = () => {
     const [users, setUsers] = useState([]);
@@ -20,6 +21,7 @@ const Users = () => {
 
     return (
         <>
+            <Menu></Menu>
             <div className="container">
                 <div className="row">
                     <div className="col mt-2">
@@ -35,7 +37,7 @@ const Users = () => {
                             }
                         </ul>
                     </div>
-                    <div className="col">
+                    <div className="col mt-2">
                         <h3>Datos</h3>
                         <p>
                             What is Lorem Ipsum?
@@ -48,7 +50,7 @@ const Users = () => {
                 </div>
                 <ul>
                     <li>
-                        <Link className="btn btn-primary" to={`/`}>Home</Link>
+                        <Link className="btn btn-primary" to={`/`}>Atras</Link>
                     </li>
                 </ul>
             </div>
